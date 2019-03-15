@@ -21,7 +21,8 @@ const styles = {
 		padding: "2px 4px",
 		display: "flex",
 		alignItems: "center",
-		width: `${window.innerWidth}px`
+		width: `${window.innerWidth-20}px`,
+		margin:'auto'
 	},
 	input: {
 		marginLeft: 8,

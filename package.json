@@ -13,7 +13,8 @@
     "react-router-dom": "4.3.1",
     "react-scripts": "2.0.3",
     "react-swipeable-views": "0.13.1",
-    "react-typist": "2.0.5"
+    "react-typist": "2.0.5",
+    "react-typist-loop": "0.0.5"
   },
   "devDependencies": {},
   "scripts": {
