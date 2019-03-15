@@ -8,10 +8,12 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 
+import Divider from "@material-ui/core/Divider";
 import TypistLoop from "react-typist-loop";
 import Typist from "react-typist";
 import axios from "axios";
 import keys from "./key";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -105,7 +107,7 @@ class ControlledExpansionPanels extends React.Component {
           <Typography
             style={{
               textAlign: "center",
-              marginBottom: "10px",
+              marginBottom: "20px",
               textWeight: "900"
             }}
             variant="title">
@@ -121,17 +123,21 @@ class ControlledExpansionPanels extends React.Component {
                 expanded={expanded === `panel${i + 1}`}
                 onChange={this.handleChange(`panel${i + 1}`)}>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography className={classes.secondaryHeading}>
+                  <Typography
+                    style={{ fontWeight: "900" }}
+                    className={classes.secondaryHeading}>
                     {body.Name}
                   </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                  <List>
+                  <List style={{ width: "100%" }}>
                     {box[i].map((item, i) => {
                       return (
-                        <ListItem>
-                          <ListItemText>{item.Name}</ListItemText>
-                        </ListItem>
+                        <Link to={`/bodyLocation/${item.ID}`} style={{textDecoration:'none'}}>
+                          <ListItem button divider>
+                            <ListItemText primary={item.Name} />
+                          </ListItem>
+                        </Link>
                       );
                     })}
                   </List>
