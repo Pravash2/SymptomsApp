@@ -1,2 +1,0 @@
-# SymptomsApp
-Created with CodeSandbox
