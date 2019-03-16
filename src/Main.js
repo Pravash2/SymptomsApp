@@ -67,8 +67,8 @@ class FullWidthTabs extends React.Component {
           onChangeIndex={this.handleChangeIndex}
         >
           <TabContainer dir={theme.direction}><BodyPart /></TabContainer>
-          <TabContainer dir={theme.direction}>Item Two</TabContainer>
-          <TabContainer dir={theme.direction}>Item Three</TabContainer>
+          <TabContainer dir={theme.direction}>This page is under Working</TabContainer>
+          <TabContainer dir={theme.direction}>This page is also under Working</TabContainer>
         </SwipeableViews>
       </div>
     );
