@@ -1,30 +1,60 @@
-import React from 'react'
-import key from './key'
-import axios from 'axios'
-import { List, ListItem, ListItemText } from "@material-ui/core";
+import React from "react";
+import key from "./key";
+import axios from "axios";
+import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import Typist from "react-typist";
 
-class Diagnosis extends React.Component{
-    state={
-        datas:''
+class Diagnosis extends React.Component {
+  state = {
+    datas: ""
+  };
+  componentDidMount() {
+    axios
+      .get(
+        `https://sandbox-healthservice.priaid.ch/symptoms/${
+          this.props.match.params.id
+        }/0?token=${key}&format=json&language=en-gb`
+      )
+      .then(res => this.setState({ datas: res.data }));
+  }
+  render() {
+    if (this.state.datas.length > 2) {
+      const app = this.state.datas;
+
+      return (
+        <div>
+          <Typography
+            style={{
+              textAlign: "center",
+              margin: "20px",
+              textWeight: "900"
+            }}
+            variant="title">
+            <Typist>
+              <span> Select Your Symptoms</span>
+              <Typist.Backspace count={21} delay={2000} />
+              <span> Then Click to Diagnosis </span>
+            </Typist>
+          </Typography>
+          {app.map((datas, i) => {
+            return (
+              <List style={{ margin: "auto", width: "95%" }}>
+                <Link
+                  to={`/disease/${datas.ID}`}
+                  style={{ textDecoration: "none" }}>
+                  <ListItem button>
+                    <ListItemText primary={datas.Name} />
+                  </ListItem>
+                </Link>{" "}
+              </List>
+            );
+          })}
+        </div>
+      );
     }
-    componentDidMount(){
-        axios.get(`https://sandbox-healthservice.priaid.ch/symptoms/${this.props.match.params.id}/0?token=${key}&format=json&language=en-gb`)
-            .then(res=>this.setState({datas:res.data}))
-    }
-    render(){
-        if(this.state.datas.length>2){
-        const app=this.state.datas;
-        console.log(app)
-        return(
-            <div>
-            {app.map(datas=>{
-                return <List><ListItem><ListItemText primary={datas.Name} /></ListItem></List>
-            })}
-            </div>
-        )
-        }
-        return <div>Loading</div>
-    }
+    return <div>Loading</div>;
+  }
 }
 
 export default Diagnosis;
