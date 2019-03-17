@@ -2,7 +2,7 @@ import React from "react";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import Dialogs from "./Dialog";
+import Card from "./Card";
 
 import axios from "axios";
 import key from "./key";
@@ -10,12 +10,12 @@ import key from "./key";
 class Issue extends React.Component {
   state = {
     issue: "",
-    open: true,
-    disease: "",
+    open: false,
     data:''
   };
   constructor(props) {
     super(props);
+    this.renderCard=this.renderCard.bind(this)
   }
   componentDidMount() {
     axios
@@ -26,28 +26,28 @@ class Issue extends React.Component {
   }
 
   handelClick(issue) {
-    axios
-      .get(
-        `https://sandbox-healthservice.priaid.ch/issues/${
-          issue.ID
-        }/info?token=${key}&format=json&language=en-gb`
-      )
-      .then(res => this.setState({ disease: res.data }));
-
-    this.setState({ open: false});
+    this.setState({ open:this.state.open?false:true});
     this.setState({data:issue})
+  }
+
+  renderCard(issue){
+    if(this.state.open && issue.ID===this.state.data.ID)
+      return <Card data={this.state.data} />
   }
   
 
   render() {
-    if (this.state.issue && (this.state.open || this.state.disease)) {
-      if(!this.state.open && this.state.disease){
-          console.log(this.state.data)
+    if (this.state.issue) {
+      if(this.state.data && this.state.open){
+      console.log("1ST",this.state.open,this.state.data)
       return (
         <div>
           <List>
+         
             {this.state.issue.map(issue => {
               return (
+                <div>
+                 
                 <ListItem
                   onClick={() => this.handelClick(issue)}
                   key={issue.ID}
@@ -56,11 +56,15 @@ class Issue extends React.Component {
                   <ListItemText>{issue.Name}</ListItemText>
 
                   <ExpandMore />
+                
                 </ListItem>
+                {this.renderCard(issue)}
+                </div>
               );
             })}
+            
           </List>
-          <Dialogs handelClose={this.handelClose} data={this.state.disease} disease={this.state.data} />
+          
         </div>
       );
     }
@@ -81,7 +85,6 @@ class Issue extends React.Component {
               );
             })}
           </List>
-          <Dialogs open={!this.state.open} />
         </div>
       );
     }
