@@ -22,22 +22,20 @@ class Issue extends React.Component {
   render() {
     if (this.state.issue)
       return (
-        
-          <List>
-            {this.state.issue.map(issue => {
-              return (
-                <Link
-              to={`/disease/${issue.ID}`}
-            key={issue.ID}
-              style={{ textDecoration: "none" }}>
+        <List>
+          {this.state.issue.map(issue => {
+            return (
+              <Link
+                to={`/disease/${issue.ID}`}
+                key={issue.ID}
+                style={{ textDecoration: "none" }}>
                 <ListItem key={issue.ID} divider button>
                   <ListItemText>{issue.Name}</ListItemText>
                   <ExpandMore />
                 </ListItem>
-                </Link>
-              );
-            })}
-          
+              </Link>
+            );
+          })}
         </List>
       );
     return <Loader />;
