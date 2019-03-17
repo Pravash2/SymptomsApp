@@ -7,6 +7,8 @@ import Card from "./Card";
 import axios from "axios";
 import key from "./key";
 
+import Loader from './Loader'
+
 class Issue extends React.Component {
   state = {
     issue: "",
@@ -55,7 +57,7 @@ class Issue extends React.Component {
                   button>
                   <ListItemText>{issue.Name}</ListItemText>
 
-                  <ExpandMore />
+                  {this.state.open ? <ExpandLess /> : <ExpandMore />}
                 
                 </ListItem>
                 {this.renderCard(issue)}
@@ -88,7 +90,7 @@ class Issue extends React.Component {
         </div>
       );
     }
-    return <div>Loading</div>;
+    return <Loader />;
   }
 }
 

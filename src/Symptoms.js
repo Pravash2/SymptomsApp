@@ -5,6 +5,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 
 import axios from "axios";
 import key from "./key";
+import Loader from './Loader'
 
 class Issue extends React.Component {
     state={
@@ -31,7 +32,7 @@ class Issue extends React.Component {
        
       </List>
     );
-    return <div>Loading</div>
+    return <Loader />
   }
 }
 

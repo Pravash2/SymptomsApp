@@ -4,6 +4,7 @@ import axios from "axios";
 import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Typist from "react-typist";
+import Loader from './Loader'
 
 class Diagnosis extends React.Component {
   state = {
@@ -54,7 +55,7 @@ class Diagnosis extends React.Component {
         </div>
       );
     }
-    return <div>Loading</div>;
+    return <Loader />;
   }
 }
 

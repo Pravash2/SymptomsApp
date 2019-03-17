@@ -15,6 +15,7 @@ import axios from "axios";
 import keys from "./key";
 import { Link } from "react-router-dom";
 
+import Loader from './Loader'
 
 const styles = theme => ({
   root: {
@@ -149,7 +150,7 @@ class ControlledExpansionPanels extends React.Component {
         </div>
       );
     }
-    return <div>Loading</div>;
+    return <Loader />;
   }
 }
 

@@ -3,6 +3,8 @@ import axios from 'axios'
 import key from './key';
 import Dialog from './Dialog'
 
+import Loader from './Loader'
+
 class Card extends React.Component{
     state={
         data:''
@@ -16,7 +18,7 @@ class Card extends React.Component{
     render(){
         if(this.state.data)
         return <Dialog data={this.state.data}  />
-        return <div>Loading</div>
+        return <Loader />
     }
 }
 

@@ -19,6 +19,8 @@ import Divider from '@material-ui/core/Divider';
 import key from "./key";
 import axios from "axios";
 
+import Loader from './Loader'
+
 const styles = theme => ({
   root: {
     width: "100%",
@@ -102,7 +104,7 @@ class NestedList extends React.Component {
           })}
         </List>
       );
-    return <div>Loading</div>;
+    return <Loader />;
   }
 }
 
