@@ -1,5 +1,5 @@
 # SymptomsApp
-Demo of this
+
 ![](https://github.com/Pravash2/SymptomsApp/blob/master/RhnyDXKoDp.gif)
 
 Please change this key before any professional work this is a dummy key
