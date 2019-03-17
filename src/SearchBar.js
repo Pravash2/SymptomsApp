@@ -8,6 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import DirectionsIcon from "@material-ui/icons/Directions";
+import Lable from "@material-ui/icons/KeyboardArrowRight";
 
 import { ListItem, ListItemText } from "@material-ui/core";
 import axios from "axios";
@@ -94,9 +95,11 @@ class CustomizedInputBase extends React.Component {
 					{this.state.disease.map(disease => (
 						<Link
 							to={`/disease/${disease.ID}`}
+							key={disease.ID}
 							style={{ textDecoration: "none" }}>
-							<ListItem button>
+							<ListItem divider style={{width:`${window.innerWidth-50}px`,margin:'auto'}}  button>
 								<ListItemText primary={disease.Name} />
+								<Lable />
 							</ListItem>
 						</Link>
 					))}

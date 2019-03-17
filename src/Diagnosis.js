@@ -37,19 +37,20 @@ class Diagnosis extends React.Component {
               <span> Then Click to Diagnosis </span>
             </Typist>
           </Typography>
-          {app.map((datas, i) => {
-            return (
-              <List style={{ margin: "auto", width: "95%" }}>
+
+          <List style={{ margin: "auto", width: "95%" }}>
+            {app.map((datas, i) => {
+              return (
                 <Link
                   to={`/disease/${datas.ID}`}
                   style={{ textDecoration: "none" }}>
                   <ListItem button>
                     <ListItemText primary={datas.Name} />
                   </ListItem>
-                </Link>{" "}
-              </List>
-            );
-          })}
+                </Link>
+              );
+            })}
+          </List>
         </div>
       );
     }

@@ -1,102 +1,130 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import PersonIcon from '@material-ui/icons/Person';
-import AddIcon from '@material-ui/icons/Add';
-import Typography from '@material-ui/core/Typography';
-import blue from '@material-ui/core/colors/blue';
-import axios from 'axios'
-import key from './key'
+import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import MuiDialogContent from "@material-ui/core/DialogContent";
+import MuiDialogActions from "@material-ui/core/DialogActions";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import Typography from "@material-ui/core/Typography";
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
-const styles = {
-  avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
+import axios from "axios";
+import key from "./key";
+
+const DialogTitle = withStyles(theme => ({
+  root: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    margin: 0,
+    padding: theme.spacing.unit * 2
   },
-};
-
-class SimpleDialog extends React.Component {
-
-    
-
-  handleClose = () => {
-    this.props.onClose(this.props.selectedValue);
-  };
-
-  handleListItemClick = value => {
-    this.props.onClose(value);
-  };
-
-  render() {
-    const { classes, onClose, selectedValue, ...other } = this.props;
-
-    return (
-      <Dialog onClose={this.handleClose} aria-labelledby="simple-dialog-title" {...other}>
-        <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
-        <div>
-         Hello
-        </div>
-      </Dialog>
-    );
+  closeButton: {
+    position: "absolute",
+    right: theme.spacing.unit,
+    top: theme.spacing.unit,
+    color: theme.palette.grey[500]
   }
-}
+}))(props => {
+  const { children, classes, onClose } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton
+          aria-label="Close"
+          className={classes.closeButton}
+          onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
 
-SimpleDialog.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onClose: PropTypes.func,
-  selectedValue: PropTypes.string,
-};
+const DialogContent = withStyles(theme => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing.unit * 2
+  }
+}))(MuiDialogContent);
 
-const SimpleDialogWrapped = withStyles(styles)(SimpleDialog);
+const DialogActions = withStyles(theme => ({
+  root: {
+    borderTop: `1px solid ${theme.palette.divider}`,
+    margin: 0,
+    padding: theme.spacing.unit
+  }
+}))(MuiDialogActions);
 
-class SimpleDialogDemo extends React.Component {
- state={
-        datas:''
-    }
-    componentDidMount(){
-        axios.get(`https://sandbox-healthservice.priaid.ch/symptoms/${this.props.item.ID}/0?token=${key}&format=json&language=en-gb`)
-            .then(res=>this.setState({datas:res.data}))
-    }
-  state = {
-    open: false,
-    selectedValue: emails[1],
-  };
+class CustomizedDialogDemo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: this.props.data ? true : false,
+      data: this.props.data,
+      data2: this.props.disease,
+      disease: ""
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get(
+        `https://sandbox-healthservice.priaid.ch/issues/${15}/info?token=${key}&format=json&language=en-gb`
+      )
+      .then(res => this.setState({ data: res.data }));
+  }
 
   handleClickOpen = () => {
     this.setState({
-      open: true,
+      open: true
     });
   };
 
-  handleClose = value => {
-    this.setState({ selectedValue: value, open: false });
+  handleClose = () => {
+    this.setState({ open: false });
   };
 
   render() {
-      console.log(this.state.datas)
-    return (
-      <div>
-      
-        <Button onClick={this.handleClickOpen}>
-          {this.props.item.Name}
-        </Button>
-        <SimpleDialogWrapped
-          selectedValue={this.state.selectedValue}
-          open={this.state.open}
-          onClose={this.handleClose}
-        />
-      </div>
-    );
+    
+    if (this.state.data) {
+      return (
+        <div>
+          <Dialog
+            onClose={this.handleClose}
+            aria-labelledby="customized-dialog-title"
+            open={this.state.open}>
+            <DialogTitle
+              id="customized-dialog-title"
+              onClose={this.handleClose}>
+              {this.state.data.Name}
+            </DialogTitle>
+            <DialogContent>
+              <Typography gutterBottom>
+                <h3>Description </h3>
+                {this.state.data.Description}
+              </Typography>
+
+              <Typography gutterBottom>
+                <h3>Medical Condition</h3>
+                {this.state.data.MedicalCondition}
+              </Typography>
+              <Typography gutterBottom>
+                <h3>Possible Symptoms </h3>
+                {this.state.data.PossibleSymptoms}
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Exit
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      );
+    }
+    return <div>Loading</div>;
   }
 }
 
-export default SimpleDialogDemo;
+export default CustomizedDialogDemo;

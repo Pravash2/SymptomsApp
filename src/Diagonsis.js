@@ -66,13 +66,12 @@ class NestedList extends React.Component {
           {this.state.disease.map(dis => {
             return (
               <div>
-                {" "}
-                <ListItem button onClick={this.handleClick}>
+                <ListItem key={dis.ID} button onClick={this.handleClick}>
                   <ListItemText
                     primary={`${dis.Issue.Ranking} ${dis.Issue.Name}`}
-                    secondary={`${dis.Issue.IcdName} | Rank ${
+                    secondary={`Rank ${
                       dis.Issue.Ranking
-                    } | Accurarcy ${dis.Issue.Accuracy}% `}
+                    } | Accurarcy ${dis.Issue.Accuracy}% | ${dis.Issue.IcdName}   `}
                   />
                   {this.state.open ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>

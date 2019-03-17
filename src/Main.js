@@ -7,7 +7,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import SearchBar from './SearchBar';
-import BodyPart from './BodyPart'
+import BodyPart from './BodyPart';
+import Issue from './Issue'
+import Sympotoms from './Symptoms'
 
 function TabContainer({ children, dir }) {
   return (
@@ -66,9 +68,10 @@ class FullWidthTabs extends React.Component {
           index={this.state.value}
           onChangeIndex={this.handleChangeIndex}
         >
+          <TabContainer dir={theme.direction}><Issue /></TabContainer>
           <TabContainer dir={theme.direction}><BodyPart /></TabContainer>
-          <TabContainer dir={theme.direction}>This page is under Working</TabContainer>
-          <TabContainer dir={theme.direction}>This page is also under Working</TabContainer>
+          <TabContainer dir={theme.direction}><Sympotoms /></TabContainer>
+        
         </SwipeableViews>
       </div>
     );
