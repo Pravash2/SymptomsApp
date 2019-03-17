@@ -1,6 +1,6 @@
 # SymptomsApp
 Demo of this
-![](http://g.recordit.co/tFcwpqwCXy.gif)
+![](https://github.com/Pravash2/SymptomsApp/blob/master/RhnyDXKoDp.gif)
 
 Please change this key before any professional work this is a dummy key
 Copy the key from https://apimedic.com/apitest and paste here
