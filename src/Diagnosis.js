@@ -43,6 +43,7 @@ class Diagnosis extends React.Component {
             {app.map((datas, i) => {
               return (
                 <Link
+                  key={datas.ID}
                   to={`/disease/${datas.ID}`}
                   style={{ textDecoration: "none" }}>
                   <ListItem button>
