@@ -7,7 +7,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
-
 const styles = {
   card: {
     minWidth: 275
@@ -35,11 +34,27 @@ function SimpleCard(props) {
         <Typography variant="h5" component="h2">
           {props.data.Name}
         </Typography>
-
-        <Typography component="p">{props.data.Description}</Typography>
         <br />
+        <Typography component="p">{props.data.Description}</Typography>
+
         <Typography className={classes.pos} color="textSecondary">
-          {props.data.PossibleSymptoms}
+          <h4>MedicalCondition</h4>{" "}
+          {props.data.MedicalCondition
+            ? props.data.MedicalCondition.split(".").map(data => (
+                <div style={{ margin: "5px" }}>{data}.</div>
+              ))
+            : ""}
+        </Typography>
+
+        <Typography className={classes.pos} color="textSecondary">
+          <h3>PossibleSymptoms </h3>
+          {props.data.PossibleSymptoms
+            ? props.data.PossibleSymptoms.split(",").map(data => (
+                <div style={{ marginLeft: "5px", fontWeight: "900" }}>
+                  {data}
+                </div>
+              ))
+            : ""}
         </Typography>
       </CardContent>
       <CardActions>
